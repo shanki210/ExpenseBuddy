@@ -1,10 +1,13 @@
 import React from 'react'
 import { Box } from '@chakra-ui/react'
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, ButtonGroup, IconButton } from '@chakra-ui/react'  
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, ButtonGroup, IconButton, useBreakpointValue } from '@chakra-ui/react'  
 import { AddIcon } from '@chakra-ui/icons'
 import TransactionModal from '../components/TransactionModal'
+import BarChart from '../components/BarChart'
+import PolarChart from '../components/PolarChart'
 
 const HomePage = () => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <Box 
     margin={"auto"}
@@ -23,6 +26,9 @@ const HomePage = () => {
           <Button>Transaction</Button>
         </ButtonGroup>
       </TransactionModal>
+    </Box>
+    <Box mt = {"20px"}>
+      {isMobile ? <PolarChart/> : <BarChart/>}
     </Box>
     
     
