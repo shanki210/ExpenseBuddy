@@ -87,14 +87,14 @@ const Navbar = () => {
 
           <DrawerBody>
             <VStack>
-            <Divider orientation='horizontal' />
+              <Divider orientation='horizontal' />
               <Button size='lg' width={'100%'} leftIcon={<ArrowForwardIcon />} variant='ghost' colorScheme='teal' onClick={()=>navigate('/home')}>Home</Button>
             </VStack>
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
+              Close
             </Button>
           </DrawerFooter>
         </DrawerContent>
