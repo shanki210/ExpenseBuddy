@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react'
+import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from '@chakra-ui/react'
 import { FormControl, FormLabel, Input } from '@chakra-ui/react'
 
 const TransactionModal = ({children}) => {
@@ -15,22 +15,44 @@ const TransactionModal = ({children}) => {
         >
         <ModalOverlay />
         <ModalContent>
-            <ModalHeader>Create your account</ModalHeader>
+            <ModalHeader>Add Transaction</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
             <FormControl>
-                <FormLabel>First name</FormLabel>
-                <Input placeholder='First name' />
+                <FormLabel>Date</FormLabel>
+                <Input focusBorderColor='lime' placeholder='Date' type='date' />
             </FormControl>
 
             <FormControl mt={4}>
-                <FormLabel>Last name</FormLabel>
-                <Input placeholder='Last name' />
+                <FormLabel>Amount</FormLabel>
+                <Input focusBorderColor='lime' placeholder='Amount'  type='number'/>
             </FormControl>
+
+            <FormControl mt={4}>
+                <FormLabel>Category</FormLabel>
+                {/* //take input in form of option between food grocery travel entertainment miscellaneous */}
+                <Select placeholder='Select option' focusBorderColor='lime'>
+                    <option value='Food'>Food</option>
+                    <option value='Grocery'>Groceries</option>
+                    <option value='Travel'>Shopping</option>
+                    <option value='Entertainment'>Repayments</option>
+                    <option value='Sports'>Logistics</option>
+                    <option value='Miscellaneous'>Miscellaneous</option>
+                </Select>
+            </FormControl>
+                
+            <FormControl mt={4}>
+                <FormLabel>Transaction Type</FormLabel>
+                <Select placeholder='Select option' focusBorderColor='lime'>
+                    <option value='Income'>Income</option>
+                    <option value='Expense'>Expense</option>
+                </Select>
+            </FormControl>
+
             </ModalBody>
 
             <ModalFooter>
-            <Button colorScheme='blue' mr={3}>
+            <Button colorScheme='teal' mr={3} >
                 Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
