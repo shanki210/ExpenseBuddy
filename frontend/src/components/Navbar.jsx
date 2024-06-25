@@ -89,6 +89,7 @@ const Navbar = () => {
             <VStack>
               <Divider orientation='horizontal' />
               <Button size='lg' width={'100%'} leftIcon={<ArrowForwardIcon />} variant='ghost' colorScheme='teal' onClick={()=>navigate('/home')}>Home</Button>
+              <Button size='lg' width={'100%'} leftIcon={<ArrowForwardIcon />} variant='ghost' colorScheme='teal' onClick={()=>navigate('/strategy')}>Strategic Analysis</Button>
             </VStack>
           </DrawerBody>
 

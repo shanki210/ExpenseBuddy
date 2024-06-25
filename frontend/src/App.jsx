@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import ProtectedRoute from './components/authenticate/ProtectedRoute'
 import { Box } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
+import StrategyPage from './pages/StrategyPage'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage/>}/>
           <Route path='/home' element={<ProtectedRoute><HomePage/></ProtectedRoute>}/>
+          <Route path='/strategy' element={<ProtectedRoute><StrategyPage/></ProtectedRoute>}/>
         </Routes>
       </Box>
     </div>
