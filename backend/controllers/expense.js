@@ -7,11 +7,11 @@ export const addExpense = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
         const newExpense = await Expense.create({
-            date,
+            date, 
             amount,
             category,
             transaction,
-            user: req.user._id,
+            user: req.user._id, 
         });
         if (newExpense) {
             res.status(201).json({

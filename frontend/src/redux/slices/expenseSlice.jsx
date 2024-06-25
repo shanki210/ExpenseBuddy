@@ -3,13 +3,20 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
+const getToken = () => {
+    const userInfo = localStorage.getItem('userInfo');
+    return userInfo ? JSON.parse(userInfo).token : null;
+};
+
 export const addExpense = createAsyncThunk("expense/addExpense", async ({ date, amount, category, transaction }, thunkAPI) => {
     try {
+        const token = getToken();
         const config = {
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
-            authorization: `Bearer ${localStorage.getItem("token")}`,
+            
         };
         const { data } = await axios.post("/api/v1/expense/addexpense", { date, amount, category, transaction }, config);
         return data;
@@ -20,11 +27,12 @@ export const addExpense = createAsyncThunk("expense/addExpense", async ({ date, 
 
 export const getExpense = createAsyncThunk("expense/getExpense", async (_, thunkAPI) => {   
     try {
+        const token = getToken();
         const config = {
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
-            authorization: `Bearer ${localStorage.getItem("token")}`,
         };
         const { data } = await axios.get("/api/v1/expense/getexpense", config);
         return data;
