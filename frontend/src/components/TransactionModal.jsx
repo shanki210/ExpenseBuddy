@@ -8,7 +8,7 @@ const TransactionModal = ({children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [date, setDate] = React.useState('');
-    const [amount, setAmount] = React.useState('');
+    const [amount, setAmount] = React.useState(0);
     const [category, setCategory] = React.useState('miscellaneous');
     const [transaction, setTransaction] = React.useState('Expense');
 

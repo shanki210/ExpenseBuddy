@@ -3,19 +3,40 @@ import React from 'react';
 import { PolarArea } from 'react-chartjs-2';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend } from 'chart.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExpense } from '../redux/slices/expenseSlice';
+import { useEffect } from 'react';
 
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 const PolarChart = () => {
   const bgColor = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('black', 'white');
+  const dispatch = useDispatch();
+
+  const { expenses, isLoading } = useSelector((state) => state.expense);
+
+  useEffect(() => {
+    dispatch(getExpense());
+  }, [dispatch]);
+
+  const processData = () => {
+    const categories = ['food', 'groceries', 'sports', 'shopping', 'miscellaneous', 'repayments', 'logistics'];
+    return categories.map(category => {
+      return expenses.filter(expense => expense.category === category).reduce((total, expense) => total + expense.amount, 0);
+    });
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const data = {
     labels: ['Food', 'Groceries', 'Sports', 'Shopping', 'Miscellaneous', 'Repayments', 'Logistics'],
     datasets: [
       {
         label: 'Expenses',
-        data: [20, 30, 15, 25, 10, 40, 35],
+        data: processData(),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

@@ -2,6 +2,10 @@
 import React from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Icon } from '@chakra-ui/react';
 import { FaUtensils, FaShoppingCart, FaRunning, FaTshirt, FaMoneyBillWave, FaTruck, FaQuestionCircle } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { getExpense } from '../redux/slices/expenseSlice';
+import { useEffect } from 'react';
+import SkeletonLoader from './SkeletonLoader';
 
 const data = [
   { date: '2024-06-01', amount: 50, category: 'Food' },
@@ -14,16 +18,34 @@ const data = [
 ];
 
 const categoryIcons = {
-  Food: FaUtensils,
-  Groceries: FaShoppingCart,
-  Sports: FaRunning,
-  Shopping: FaTshirt,
-  Miscellaneous: FaQuestionCircle,
-  Repayments: FaMoneyBillWave,
-  Logistics: FaTruck,
+  food: FaUtensils,
+  groceries: FaShoppingCart,
+  sports: FaRunning,
+  shopping: FaTshirt,
+  miscellaneous: FaQuestionCircle,
+  repayments: FaMoneyBillWave,
+  logistics: FaTruck,
 };
 
 const ExpenseTable = () => {
+  const dispatch = useDispatch();
+  const { expenses, isLoading, isError, message } = useSelector((state) => state.expense);
+
+  useEffect(() => {
+    dispatch(getExpense());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <SkeletonLoader/>;
+  }
+
+  if (isError) {
+    return <div>Error: {message}</div>;
+  }
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
   return (
     <TableContainer>
       <Table variant="simple" colorScheme='teal' bgGradient={'teal'} boxShadow={"rgba(0, 0, 0, 0.35) 0px 5px 15px"}>
@@ -35,13 +57,13 @@ const ExpenseTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((item, index) => (
+          {expenses.map((item, index) => (
             <Tr key={index}>
-              <Td>{item.date}</Td>
+              <Td>{formatDate(item.date)}</Td>
               <Td>{item.amount}</Td>
               <Td>
                 <Icon as={categoryIcons[item.category]} marginRight="5px" />
-                {item.category}
+                {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
               </Td>
             </Tr>
           ))}
